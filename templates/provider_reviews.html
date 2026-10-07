@@ -1,0 +1,618 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Provider Reviews | Community Marketplace</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #F8FAFC;
+            color: #0F172A;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+            padding: 12px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 82px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .site-logo {
+            width: 190px;
+            height: 58px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .nav-btn.primary {
+            background: #2563EB;
+            color: white;
+        }
+
+        .nav-btn.primary:hover {
+            background: #1D4ED8;
+        }
+
+        .nav-btn.secondary {
+            color: #2563EB;
+            border: 1px solid #2563EB;
+            background: white;
+        }
+
+        .nav-btn.secondary:hover {
+            background: #EFF6FF;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 92%;
+            max-width: 1050px;
+            margin: 45px auto 70px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            color: #0F172A;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #64748B;
+            font-size: 15px;
+        }
+
+        /* PROVIDER CARD */
+
+        .provider-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .provider-top {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .provider-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 14px;
+            object-fit: cover;
+            border: 1px solid #E2E8F0;
+            background: #EFF6FF;
+        }
+
+        .provider-placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 14px;
+            background: #EFF6FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563EB;
+            font-size: 38px;
+            font-weight: bold;
+        }
+
+        .provider-info {
+            flex: 1;
+        }
+
+        .provider-info h2 {
+            font-size: 24px;
+            margin-bottom: 7px;
+            color: #0F172A;
+        }
+
+        .category {
+            color: #2563EB;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .rating-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .stars {
+            color: #F59E0B;
+            font-size: 21px;
+            letter-spacing: 2px;
+        }
+
+        .rating-number {
+            font-weight: 700;
+            color: #0F172A;
+        }
+
+        .review-count {
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        .write-review {
+            display: inline-block;
+            text-decoration: none;
+            background: #2563EB;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+        .write-review:hover {
+            background: #1D4ED8;
+        }
+
+        /* REVIEWS */
+
+        .reviews-section {
+            margin-top: 35px;
+        }
+
+        .reviews-section h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #0F172A;
+        }
+
+        .review-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .customer-name {
+            font-weight: 700;
+            color: #0F172A;
+        }
+
+        .review-date {
+            color: #64748B;
+            font-size: 13px;
+        }
+
+        .review-stars {
+            color: #F59E0B;
+            font-size: 18px;
+            margin-bottom: 9px;
+            letter-spacing: 1px;
+        }
+
+        .review-text {
+            color: #475569;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .empty-reviews {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 35px;
+            text-align: center;
+            color: #64748B;
+        }
+
+        .empty-icon {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        /* BACK BUTTON */
+
+        .back-section {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #2563EB;
+            border: 1px solid #2563EB;
+            padding: 11px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #EFF6FF;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #0F172A;
+            color: #CBD5E1;
+            text-align: center;
+            padding: 28px 20px;
+            margin-top: 50px;
+        }
+
+        footer h3 {
+            color: white;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        footer p {
+            font-size: 14px;
+            color: #94A3B8;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 10px 4%;
+            }
+
+            .site-logo {
+                width: 150px;
+                height: 52px;
+            }
+
+            .nav-right {
+                gap: 6px;
+            }
+
+            .nav-btn {
+                padding: 8px 11px;
+                font-size: 12px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 30px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .provider-card {
+                padding: 20px;
+            }
+
+            .provider-top {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .rating-box {
+                justify-content: center;
+            }
+
+            .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .write-review {
+                margin-top: 10px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <a href="{% url 'home' %}" class="logo-link">
+
+            <img
+                src="{% static 'images/community_logo.png' %}"
+                class="site-logo"
+                alt="Community Marketplace"
+            >
+
+        </a>
+
+        <div class="nav-right">
+
+            <a href="{% url 'service_list' %}"
+               class="nav-btn secondary">
+                Services
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'logout' %}"
+                   class="nav-btn primary">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'customer_login' %}"
+                   class="nav-btn primary">
+                    Login
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+        <div class="page-header">
+
+            <h1>Provider Reviews</h1>
+
+            <p>
+                See what customers say about this service provider.
+            </p>
+
+        </div>
+
+
+        <!-- PROVIDER SUMMARY -->
+
+        <div class="provider-card">
+
+            <div class="provider-top">
+
+                {% if provider.image %}
+
+                    <img
+                        src="{{ provider.image }}"
+                        class="provider-image"
+                        alt="{{ provider.user.first_name }}"
+                    >
+
+                {% else %}
+
+                    <div class="provider-placeholder">
+                        {{ provider.user.first_name|first|upper }}
+                    </div>
+
+                {% endif %}
+
+
+                <div class="provider-info">
+
+                    <h2>
+                        {{ provider.user.first_name }}
+                    </h2>
+
+                    <div class="category">
+                        {{ provider.category }}
+                    </div>
+
+                    <div class="rating-box">
+
+                        <span class="stars">
+                            {% if average_rating >= 1 %}★{% else %}☆{% endif %}
+                            {% if average_rating >= 2 %}★{% else %}☆{% endif %}
+                            {% if average_rating >= 3 %}★{% else %}☆{% endif %}
+                            {% if average_rating >= 4 %}★{% else %}☆{% endif %}
+                            {% if average_rating >= 5 %}★{% else %}☆{% endif %}
+                        </span>
+
+                        <span class="rating-number">
+                            {{ average_rating }}/5
+                        </span>
+
+                        <span class="review-count">
+                            {{ review_count }}
+                            review{{ review_count|pluralize }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                {% if user.is_authenticated %}
+
+                    <a
+                        href="{% url 'add_review' provider.id %}"
+                        class="write-review"
+                    >
+                        ⭐ Write a Review
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- CUSTOMER REVIEWS -->
+
+        <section class="reviews-section">
+
+            <h2>
+                Customer Reviews
+            </h2>
+
+
+            {% if reviews %}
+
+                {% for review in reviews %}
+
+                    <div class="review-card">
+
+                        <div class="review-header">
+
+                            <div class="customer-name">
+                                {{ review.customer.username }}
+                            </div>
+
+                            <div class="review-date">
+                                {{ review.created_at|date:"d M Y" }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="review-stars">
+
+                            {% if review.rating >= 1 %}★{% else %}☆{% endif %}
+                            {% if review.rating >= 2 %}★{% else %}☆{% endif %}
+                            {% if review.rating >= 3 %}★{% else %}☆{% endif %}
+                            {% if review.rating >= 4 %}★{% else %}☆{% endif %}
+                            {% if review.rating >= 5 %}★{% else %}☆{% endif %}
+
+                        </div>
+
+
+                        {% if review.review %}
+
+                            <p class="review-text">
+                                {{ review.review }}
+                            </p>
+
+                        {% else %}
+
+                            <p class="review-text">
+                                No written comment provided.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-reviews">
+
+                    <div class="empty-icon">
+                        ⭐
+                    </div>
+
+                    <p>
+                        No reviews yet.
+                    </p>
+
+                    <p style="margin-top: 7px;">
+                        Be the first customer to review this provider.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- BACK -->
+
+        <div class="back-section">
+
+            <a
+                href="{% url 'service_list' %}"
+                class="back-btn"
+            >
+                ← Back to Services
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>
+            Community Marketplace
+        </h3>
+
+        <p>
+            Connecting customers with trusted local service providers.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

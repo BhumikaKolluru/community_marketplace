@@ -1,0 +1,392 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Community Marketplace</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f8fafc;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+        }
+
+        /* LOGIN CARD */
+
+        .card {
+            width: 100%;
+            max-width: 440px;
+
+            background: #ffffff;
+
+            padding: 38px 40px;
+
+            border-radius: 18px;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow:
+                0 15px 40px rgba(15, 23, 42, 0.10);
+        }
+
+        /* LOGO */
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-decoration: none;
+
+            margin-bottom: 18px;
+        }
+
+        .site-logo {
+            width: 190px;
+            height: 60px;
+
+            object-fit: contain;
+
+            display: block;
+        }
+
+        /* HEADING */
+
+        h1 {
+            text-align: center;
+
+            color: #1e3a8a;
+
+            font-size: 26px;
+
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 26px;
+        }
+
+        /* ERROR */
+
+        .error {
+            background: #fee2e2;
+
+            color: #b91c1c;
+
+            border: 1px solid #fecaca;
+
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            margin-bottom: 18px;
+
+            font-size: 13px;
+        }
+
+        /* FORM */
+
+        .group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+
+            color: #334155;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            background: #ffffff;
+
+            color: #0f172a;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px #dbeafe;
+        }
+
+        /* LOGIN BUTTON */
+
+        button {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 3px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #2563eb;
+
+            color: #ffffff;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 6px 15px rgba(37, 99, 235, 0.25);
+        }
+
+        /* REGISTER LINK */
+
+        .bottom {
+            text-align: center;
+
+            margin-top: 22px;
+
+            font-size: 14px;
+
+            color: #64748b;
+        }
+
+        .bottom a {
+            color: #2563eb;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            margin-left: 4px;
+        }
+
+        .bottom a:hover {
+            text-decoration: underline;
+        }
+
+        /* HOME LINK */
+
+        .home {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #64748b;
+
+            text-decoration: none;
+
+            font-size: 13px;
+        }
+
+        .home:hover {
+            color: #2563eb;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 20px;
+            }
+
+            .card {
+                padding: 30px 24px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            .site-logo {
+                width: 175px;
+                height: 55px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="card">
+
+        <!-- LOGO -->
+
+        <a href="{% url 'home' %}" class="logo">
+
+            <img
+                src="{% static 'images/community_logo.png' %}"
+                class="site-logo"
+                alt="Community Marketplace"
+            >
+
+        </a>
+
+
+        <!-- TITLE -->
+
+        <h1>
+            Welcome Back
+        </h1>
+
+        <p class="subtitle">
+            Login to your Community Marketplace account
+        </p>
+
+
+        <!-- ERROR MESSAGE -->
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- LOGIN FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- EMAIL -->
+
+            <div class="group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+
+        <!-- REGISTER -->
+
+        <div class="bottom">
+
+            Don't have an account?
+
+            <a href="{% url 'register' %}">
+                Create Account
+            </a>
+
+        </div>
+
+
+        <!-- HOME -->
+
+        <a
+            href="{% url 'home' %}"
+            class="home"
+        >
+            ← Back to Home
+        </a>
+
+    </div>
+
+</body>
+
+</html>

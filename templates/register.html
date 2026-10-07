@@ -1,0 +1,603 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Community Marketplace</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #F8FAFC;
+            color: #0F172A;
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 76px;
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .site-logo {
+            width: 190px;
+            height: 58px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-home {
+            text-decoration: none;
+            color: #1E3A8A;
+            font-size: 15px;
+            font-weight: 600;
+
+            padding: 9px 16px;
+            border-radius: 8px;
+
+            transition: 0.2s;
+        }
+
+        .nav-home:hover {
+            color: #2563EB;
+            background: #EFF6FF;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            min-height: calc(100vh - 76px);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 50px 20px;
+        }
+
+        /* ================= CARD ================= */
+
+        .register-card {
+            width: 100%;
+            max-width: 480px;
+
+            background: #FFFFFF;
+
+            border: 1px solid #E2E8F0;
+            border-radius: 18px;
+
+            padding: 40px;
+
+            box-shadow:
+                0 15px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        /* ================= ICON ================= */
+
+        .icon-wrapper {
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 14px;
+
+            background: #EFF6FF;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 28px;
+        }
+
+        /* ================= TITLE ================= */
+
+        .title {
+            text-align: center;
+
+            color: #1E3A8A;
+
+            font-size: 30px;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #64748B;
+
+            font-size: 14px;
+
+            margin-bottom: 28px;
+        }
+
+        /* ================= ERROR ================= */
+
+        .error {
+            background: #FEF2F2;
+            color: #DC2626;
+
+            border: 1px solid #FECACA;
+
+            padding: 12px 14px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #334155;
+
+            margin-bottom: 7px;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            height: 46px;
+
+            padding: 0 14px;
+
+            border: 1px solid #CBD5E1;
+
+            border-radius: 9px;
+
+            background: #FFFFFF;
+
+            color: #0F172A;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+        .form-group input::placeholder {
+            color: #94A3B8;
+        }
+
+        .form-group input:focus {
+            border-color: #2563EB;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        /* ================= BUTTON ================= */
+
+        .register-button {
+            width: 100%;
+
+            height: 48px;
+
+            margin-top: 6px;
+
+            border: none;
+            border-radius: 9px;
+
+            background: #2563EB;
+            color: #FFFFFF;
+
+            font-size: 16px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .register-button:hover {
+            background: #1E3A8A;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 7px 18px rgba(37, 99, 235, 0.20);
+        }
+
+        .register-button:active {
+            transform: translateY(0);
+        }
+
+        /* ================= LOGIN ================= */
+
+        .bottom {
+            text-align: center;
+
+            margin-top: 24px;
+
+            color: #64748B;
+
+            font-size: 14px;
+        }
+
+        .bottom a {
+            color: #2563EB;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+        .bottom a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= DIVIDER ================= */
+
+        .divider {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            margin: 23px 0 18px;
+
+            color: #94A3B8;
+
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #E2E8F0;
+        }
+
+        /* ================= HOME ================= */
+
+        .home-link {
+            display: block;
+
+            text-align: center;
+
+            color: #64748B;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        .home-link:hover {
+            color: #2563EB;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer-text {
+            text-align: center;
+
+            margin-top: 28px;
+
+            color: #94A3B8;
+
+            font-size: 12px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: 70px;
+                padding: 0 20px;
+            }
+
+            .site-logo {
+                width: 150px;
+                height: 50px;
+            }
+
+            .nav-home {
+                font-size: 14px;
+                padding: 8px 11px;
+            }
+
+            .page {
+                min-height: calc(100vh - 70px);
+                padding: 30px 16px;
+            }
+
+            .register-card {
+                padding: 30px 22px;
+                border-radius: 15px;
+            }
+
+            .title {
+                font-size: 26px;
+            }
+
+            .subtitle {
+                margin-bottom: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <a href="{% url 'home' %}" class="logo-link">
+
+            <img
+                src="{% static 'images/community_logo.png' %}"
+                class="site-logo"
+                alt="Community Marketplace"
+            >
+
+        </a>
+
+
+        <a
+            href="{% url 'home' %}"
+            class="nav-home"
+        >
+            Home
+        </a>
+
+    </nav>
+
+
+    <!-- ================= PAGE ================= -->
+
+    <main class="page">
+
+
+        <div class="register-card">
+
+
+            <!-- ICON -->
+
+            <div class="icon-wrapper">
+                👤
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h1 class="title">
+                Create Account
+            </h1>
+
+
+            <p class="subtitle">
+                Join Community Marketplace today
+            </p>
+
+
+            <!-- ERROR -->
+
+            {% if error %}
+
+                <div class="error">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- ================= REGISTER FORM ================= -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- USERNAME -->
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PHONE NUMBER -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        autocomplete="tel"
+                        maxlength="15"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password1">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password1"
+                        name="password1"
+                        placeholder="Enter your password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password2">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password2"
+                        name="password2"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="register-button"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <!-- LOGIN -->
+
+            <div class="bottom">
+
+                Already have an account?
+
+                <a href="{% url 'customer_login' %}">
+                    Login
+                </a>
+
+            </div>
+
+
+            <!-- DIVIDER -->
+
+            <div class="divider">
+                OR
+            </div>
+
+
+            <!-- HOME -->
+
+            <a
+                href="{% url 'home' %}"
+                class="home-link"
+            >
+                ← Back to Home
+            </a>
+
+
+            <p class="footer-text">
+                © 2026 Community Marketplace
+            </p>
+
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>

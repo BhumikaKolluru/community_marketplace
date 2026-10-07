@@ -1,0 +1,528 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Provider Login | Community Marketplace</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #F8FAFC;
+            color: #0F172A;
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            min-height: 78px;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 6%;
+            border-bottom: 1px solid #E2E8F0;
+            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .site-logo {
+            width: 190px;
+            height: 58px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2563EB;
+        }
+
+        /* ================= PAGE ================= */
+
+        .container {
+            min-height: calc(100vh - 78px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 45px 20px;
+        }
+
+        /* ================= LOGIN CARD ================= */
+
+        .login-card {
+            width: 100%;
+            max-width: 450px;
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 18px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        /* ================= ICON ================= */
+
+        .icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #EFF6FF;
+            color: #2563EB;
+            border: 1px solid #BFDBFE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 29px;
+        }
+
+        /* ================= HEADING ================= */
+
+        h1 {
+            text-align: center;
+            color: #1E3A8A;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748B;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        /* ================= ERROR ================= */
+
+        .error {
+            background: #FEF2F2;
+            color: #B91C1C;
+            border: 1px solid #FECACA;
+            padding: 12px 14px;
+            border-radius: 9px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .required {
+            color: #DC2626;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #CBD5E1;
+            border-radius: 9px;
+            background: #FFFFFF;
+            color: #0F172A;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        input::placeholder {
+            color: #94A3B8;
+        }
+
+        input:hover {
+            border-color: #94A3B8;
+        }
+
+        input:focus {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px #DBEAFE;
+        }
+
+        /* ================= LOGIN BUTTON ================= */
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 3px;
+            background: #2563EB;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background: #1D4ED8;
+            transform: translateY(-1px);
+            box-shadow: 0 7px 18px rgba(37, 99, 235, 0.25);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ================= DIVIDER ================= */
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0 20px;
+            color: #94A3B8;
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            background: #E2E8F0;
+            flex: 1;
+        }
+
+        /* ================= ACCOUNT LINK ================= */
+
+        .bottom-text {
+            text-align: center;
+            color: #64748B;
+            font-size: 14px;
+        }
+
+        .bottom-text a {
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .bottom-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= CUSTOMER LINK ================= */
+
+        .customer-link {
+            text-align: center;
+            margin-top: 16px;
+            padding: 13px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 9px;
+            color: #64748B;
+            font-size: 13px;
+        }
+
+        .customer-link a {
+            color: #1E3A8A;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .customer-link a:hover {
+            color: #2563EB;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            background: #0F172A;
+            color: #CBD5E1;
+            text-align: center;
+            padding: 24px 20px;
+        }
+
+        .footer-title {
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .footer-text {
+            font-size: 13px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 7px;
+                padding: 10px 20px;
+            }
+
+            .site-logo {
+                width: 175px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .container {
+                padding: 30px 15px 45px;
+            }
+
+            .login-card {
+                padding: 30px 22px;
+                border-radius: 14px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+        }
+
+        @media (max-width: 400px) {
+
+            .nav-links {
+                gap: 11px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .login-card {
+                padding: 25px 17px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <a href="{% url 'home' %}" class="logo-link">
+
+            <img
+                src="{% static 'images/community_logo.png' %}"
+                class="site-logo"
+                alt="Community Marketplace"
+            >
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'customer_login' %}">
+                Customer Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= LOGIN ================= -->
+
+    <main class="container">
+
+        <div class="login-card">
+
+
+            <!-- ICON -->
+
+            <div class="icon">
+                🏪
+            </div>
+
+
+            <!-- HEADING -->
+
+            <h1>
+                Provider Login
+            </h1>
+
+            <p class="subtitle">
+                Login to manage your services and bookings
+            </p>
+
+
+            <!-- ERROR -->
+
+            {% if error %}
+
+                <div class="error">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- FORM -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your provider email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    Login as Provider
+                </button>
+
+            </form>
+
+
+            <!-- DIVIDER -->
+
+            <div class="divider">
+                OR
+            </div>
+
+
+            <!-- CREATE ACCOUNT -->
+
+            <div class="bottom-text">
+
+                Don't have a provider profile?
+
+                <a href="{% url 'register' %}">
+                    Create Account
+                </a>
+
+            </div>
+
+
+            <!-- CUSTOMER -->
+
+            <div class="customer-link">
+
+                Are you a customer?
+
+                <a href="{% url 'customer_login' %}">
+                    Customer Login
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-title">
+            Community Marketplace
+        </div>
+
+        <div class="footer-text">
+            Connecting customers with trusted local service providers.
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,763 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Book Service | Community Marketplace</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #F8FAFC;
+            color: #0F172A;
+            line-height: 1.5;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            min-height: 75px;
+            background: #FFFFFF;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 7%;
+            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .site-logo {
+            width: 190px;
+            height: 58px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2563EB;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            min-height: calc(100vh - 75px);
+            padding: 45px 20px 70px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .back-link:hover {
+            color: #1E3A8A;
+        }
+
+        /* ================= LAYOUT ================= */
+
+        .booking-layout {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        /* ================= PROVIDER CARD ================= */
+
+        .provider-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 8px 28px rgba(15, 23, 42, 0.07);
+        }
+
+        .provider-card h2 {
+            color: #0F172A;
+            font-size: 27px;
+            line-height: 1.2;
+            margin-bottom: 9px;
+        }
+
+        .provider-category {
+            display: inline-block;
+            background: #EFF6FF;
+            color: #2563EB;
+            border: 1px solid #DBEAFE;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .provider-details {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .detail {
+            padding: 14px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+        }
+
+        .detail-label {
+            display: block;
+            color: #1E3A8A;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #334155;
+            font-size: 15px;
+        }
+
+        .price {
+            color: #16A34A;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .info-box {
+            margin-top: 22px;
+            padding: 15px;
+            background: #EFF6FF;
+            border: 1px solid #DBEAFE;
+            border-radius: 10px;
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            color: #1E3A8A;
+        }
+
+        /* ================= FORM CARD ================= */
+
+        .booking-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 8px 28px rgba(15, 23, 42, 0.07);
+        }
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .heading h1 {
+            color: #1E3A8A;
+            font-size: 30px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #64748B;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #CBD5E1;
+            border-radius: 9px;
+            outline: none;
+            background: #FFFFFF;
+            color: #0F172A;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            transition: 0.2s;
+        }
+
+        input:hover,
+        textarea:hover {
+            border-color: #94A3B8;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px #DBEAFE;
+        }
+
+        textarea {
+            min-height: 125px;
+            resize: vertical;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #94A3B8;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ================= ADDRESS ================= */
+
+        .address-box {
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            border-radius: 10px;
+            padding: 13px 14px;
+            margin-bottom: 20px;
+        }
+
+        .address-title {
+            color: #1E3A8A;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .address-help {
+            color: #64748B;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ================= BOOKING NOTE ================= */
+
+        .form-note {
+            margin-top: -5px;
+            margin-bottom: 20px;
+            color: #64748B;
+            font-size: 12px;
+        }
+
+        /* ================= ERROR MESSAGE ================= */
+
+        .error-message {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #B91C1C;
+            padding: 12px 14px;
+            border-radius: 9px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .book-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 5px;
+            background: #2563EB;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .book-btn:hover {
+            background: #1E3A8A;
+            transform: translateY(-1px);
+            box-shadow: 0 7px 18px rgba(37, 99, 235, 0.22);
+        }
+
+        .book-btn:active {
+            transform: translateY(0);
+        }
+
+        .cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #64748B;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .cancel-link:hover {
+            color: #2563EB;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #1E3A8A;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 28px 20px;
+        }
+
+        footer p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 800px) {
+
+            .booking-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .provider-card {
+                order: 1;
+            }
+
+            .booking-card {
+                order: 2;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 8px 20px;
+            }
+
+            .site-logo {
+                width: 150px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .page {
+                padding: 30px 15px 50px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .provider-card,
+            .booking-card {
+                padding: 23px;
+                border-radius: 15px;
+            }
+
+            .heading h1 {
+                font-size: 25px;
+            }
+
+            .provider-card h2 {
+                font-size: 24px;
+            }
+
+        }
+
+        @media (max-width: 450px) {
+
+            nav {
+                flex-direction: column;
+                gap: 5px;
+                padding-bottom: 12px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+
+    <a href="{% url 'home' %}" class="logo-link">
+
+        <img
+            src="{% static 'images/community_logo.png' %}"
+            class="site-logo"
+            alt="Community Marketplace"
+        >
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'service_list' %}">
+            Services
+        </a>
+
+        <a href="{% url 'my_bookings' %}">
+            My Bookings
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= PAGE ================= -->
+
+<div class="page">
+
+    <div class="container">
+
+
+        <a
+            href="{% url 'service_list' %}"
+            class="back-link"
+        >
+            ← Back to Services
+        </a>
+
+
+        <div class="booking-layout">
+
+
+            <!-- ================= PROVIDER ================= -->
+
+            <div class="provider-card">
+
+                <h2>
+                    {{ provider.user.username }}
+                </h2>
+
+
+                <div class="provider-category">
+                    {{ provider.category }}
+                </div>
+
+
+                <div class="provider-details">
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            📍 SERVICE AREA
+                        </span>
+
+                        <span class="detail-value">
+                            {{ provider.location }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            💰 SERVICE PRICE
+                        </span>
+
+                        <span class="price">
+                            Starting ₹{{ provider.price }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            🕐 WORKING HOURS
+                        </span>
+
+                        <span class="detail-value">
+                            {{ provider.working_hours }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            📞 CONTACT
+                        </span>
+
+                        <span class="detail-value">
+                            {{ provider.phone }}
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <strong>🏠 Home Service Booking</strong>
+
+                    <br>
+
+                    Enter the address where you want the service.
+                    The provider will use this address to visit
+                    your home.
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= BOOKING FORM ================= -->
+
+            <div class="booking-card">
+
+
+                <div class="heading">
+
+                    <h1>
+                        Book Service
+                    </h1>
+
+                    <p>
+                        Schedule a service with your local professional.
+                    </p>
+
+                </div>
+
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+
+                    <!-- ================= ERROR ================= -->
+
+                    {% if error %}
+
+                        <div class="error-message">
+                            ⚠️ {{ error }}
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- DATE + TIME -->
+
+                    <div class="row">
+
+
+                        <div class="form-group">
+
+                            <label for="booking_date">
+                                Booking Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="booking_date"
+                                name="booking_date"
+                                min="{% now 'Y-m-d' %}"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="booking_time">
+                                Booking Time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="booking_time"
+                                name="booking_time"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="form-group">
+
+                        <label for="address">
+                            🏠 Service Address
+                        </label>
+
+                        <textarea
+                            id="address"
+                            name="address"
+                            placeholder="Enter your complete home address, including house number, street, area, city and PIN code..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="address-box">
+
+                        <div class="address-title">
+                            📍 Where should the provider come?
+                        </div>
+
+                        <div class="address-help">
+                            Please provide an accurate address so the service provider
+                            can reach your home without difficulty.
+                        </div>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div class="form-group">
+
+                        <label for="message">
+                            Work Requirements
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            placeholder="Tell the provider what work you need..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-note">
+                        Your request will be sent to the provider for confirmation.
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="book-btn"
+                    >
+                        📅 Confirm Home Service Booking
+                    </button>
+
+
+                </form>
+
+
+                <a
+                    href="{% url 'service_list' %}"
+                    class="cancel-link"
+                >
+                    Cancel and return to Services
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 Community Marketplace
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

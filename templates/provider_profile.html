@@ -1,0 +1,471 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Provider Profile - Community Marketplace</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #F8FAFC;
+            color: #0F172A;
+        }
+
+        nav {
+            background: #FFFFFF;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .site-logo {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1E3A8A;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #2563EB;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: #FFFFFF;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1E3A8A;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748B;
+            margin-bottom: 30px;
+        }
+
+        .info {
+            background: #EFF6FF;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            color: #1E3A8A;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563EB;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .required {
+            color: #DC2626;
+        }
+
+        .optional {
+            color: #64748B;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #2563EB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #1E3A8A;
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .card {
+                padding: 25px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <a href="{% url 'home' %}" class="logo-link">
+
+        <img
+            src="{% static 'images/community_logo.png' %}"
+            class="site-logo"
+            alt="Community Marketplace"
+        >
+
+    </a>
+
+    <div class="nav-links">
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'service_list' %}">
+            Services
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Service Provider Profile</h1>
+
+        <p class="subtitle">
+            Add your service details so customers can find you.
+        </p>
+
+
+        <div class="info">
+
+            Please provide your correct name, phone number
+            and service details.
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label for="name">
+
+                    Name
+                    <span class="required">*</span>
+
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    value="{{ request.user.first_name }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="form-group">
+
+                <label for="phone">
+
+                    Phone Number
+                    <span class="required">*</span>
+
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter your phone number"
+                    maxlength="15"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CATEGORY -->
+
+            <div class="form-group">
+
+                <label for="category">
+
+                    Service Category
+                    <span class="required">*</span>
+
+                </label>
+
+                <select
+                    id="category"
+                    name="category"
+                    required
+                >
+
+                    <option value="">
+                        Select your service
+                    </option>
+
+                    <option value="Photography">Photography</option>
+                    <option value="Videography">Videography</option>
+                    <option value="Puncture Shop">Puncture Shop</option>
+                    <option value="Mechanic">Mechanic</option>
+                    <option value="Car Wash">Car Wash</option>
+                    <option value="Bike Service">Bike Service</option>
+                    <option value="Electrician">Electrician</option>
+                    <option value="Plumber">Plumber</option>
+                    <option value="Carpenter">Carpenter</option>
+                    <option value="Painter">Painter</option>
+                    <option value="AC Repair">AC Repair</option>
+                    <option value="Refrigerator Repair">Refrigerator Repair</option>
+                    <option value="Washing Machine Repair">Washing Machine Repair</option>
+                    <option value="Water Purifier Service">Water Purifier Service</option>
+                    <option value="CCTV Installation">CCTV Installation</option>
+                    <option value="Solar Panel Service">Solar Panel Service</option>
+                    <option value="Pest Control">Pest Control</option>
+                    <option value="Cleaning">Cleaning</option>
+                    <option value="Mobile Repair">Mobile Repair</option>
+                    <option value="Laptop Repair">Laptop Repair</option>
+                    <option value="Computer Repair">Computer Repair</option>
+                    <option value="Tailor">Tailor</option>
+                    <option value="Beautician">Beautician</option>
+                    <option value="Makeup Artist">Makeup Artist</option>
+                    <option value="Mehendi Artist">Mehendi Artist</option>
+                    <option value="Tutor">Tutor</option>
+                    <option value="Driving School">Driving School</option>
+                    <option value="Fitness Trainer">Fitness Trainer</option>
+                    <option value="Yoga Trainer">Yoga Trainer</option>
+                    <option value="Cook">Cook</option>
+                    <option value="Laundry">Laundry</option>
+                    <option value="Catering">Catering</option>
+                    <option value="Event Decoration">Event Decoration</option>
+                    <option value="Interior Design">Interior Design</option>
+                    <option value="Taxi Service">Taxi Service</option>
+                    <option value="Packers and Movers">Packers and Movers</option>
+                    <option value="Other">Other</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+                <label for="location">
+
+                    Location
+                    <span class="required">*</span>
+
+                </label>
+
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    value="Gudivada"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PRICE -->
+
+            <div class="form-group">
+
+                <label for="price">
+
+                    Starting Price
+                    <span class="required">*</span>
+
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    placeholder="Example: 500"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+            <!-- WORKING HOURS -->
+
+            <div class="form-group">
+
+                <label for="working_hours">
+
+                    Working Hours
+                    <span class="required">*</span>
+
+                </label>
+
+                <input
+                    type="text"
+                    id="working_hours"
+                    name="working_hours"
+                    placeholder="Example: 9 AM - 6 PM"
+                    required
+                >
+
+            </div>
+
+
+            <!-- IMAGE -->
+
+            <div class="form-group">
+
+                <label for="image">
+
+                    Service Image URL
+                    <span class="optional">
+                        (Optional)
+                    </span>
+
+                </label>
+
+                <input
+                    type="url"
+                    id="image"
+                    name="image"
+                    placeholder="https://example.com/image.jpg"
+                >
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group">
+
+                <label for="description">
+
+                    Service Description
+                    <span class="required">*</span>
+
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Describe the services you provide..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                Save Service Profile
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
