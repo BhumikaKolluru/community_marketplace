@@ -13,3 +13,5 @@ db.sqlite3
 .idea/
 
 *.log
+users.json
+providers.json
